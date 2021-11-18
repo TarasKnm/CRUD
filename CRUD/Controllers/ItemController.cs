@@ -17,9 +17,20 @@ namespace CRUD.Controllers
             IEnumerable<Item> objList = _db.Items;
             return View(objList);
         }
+        //GET-Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+        //SET-Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Item item)
+        {
+            _db.Items.Add(item);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
